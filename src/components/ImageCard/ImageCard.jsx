@@ -1,19 +1,18 @@
 import css from './ImageCard.module.css';
 import PropTypes from 'prop-types';
 
-const ImageCard = ({ name, url }) => {
+const ImageCard = ({ alt, urls }) => {
   const { imgContainer, img } = css;
   return (
     <div className={imgContainer}>
-      <img src={url} alt={name} className={img} />
+      <img src={urls.small} alt={alt} className={img} />
     </div>
   );
 };
 
 ImageCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  urls: PropTypes.object.isRequired,
 };
 
 export default ImageCard;

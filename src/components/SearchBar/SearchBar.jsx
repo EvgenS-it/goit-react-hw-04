@@ -1,7 +1,7 @@
 import css from './SearchBar.module.css';
 import PropTypes from 'prop-types';
 
-const SearchBar = ({ handleSubmit }) => {
+const SearchBar = ({ hadleSearch }) => {
   const { header, form, input, searchBtn } = css;
   return (
     <header className={header}>
@@ -13,7 +13,7 @@ const SearchBar = ({ handleSubmit }) => {
           autoFocus
           placeholder="Search images and photos"
         />
-        <button type="submit" className={searchBtn} onSubmit={handleSubmit}>
+        <button type="submit" className={searchBtn} onSubmit={hadleSearch}>
           Search
         </button>
       </form>
