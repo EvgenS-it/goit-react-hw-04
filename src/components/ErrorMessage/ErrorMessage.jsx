@@ -1,11 +1,11 @@
 import css from './ErrorMessage.module.css';
 import PropTypes from 'prop-types';
 
-const ErrorMessage = ({ errMsg }) => {
+const ErrorMessage = ({ errorMsg }) => {
   return (
-    <>
-      <p className={css.error}>Oops, something went wrong! {errMsg}</p>
-    </>
+    <div>
+      <p className={css.error}>{errorMsg}. Please, try again later...</p>
+    </div>
   );
 };
 
