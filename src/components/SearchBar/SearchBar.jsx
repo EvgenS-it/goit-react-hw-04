@@ -1,5 +1,5 @@
 import css from './SearchBar.module.css';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import toast from 'react-hot-toast';
 
 // for Formik
@@ -8,7 +8,7 @@ const INITIAL_VALUES = {
 };
 
 const SearchBar = ({ onSearch }) => {
-  const { form, input, btn, errorText } = css;
+  const { form, input, btn } = css;
 
   const handleSubmit = values => {
     if (values.searchTerm.trim().length === 0) {
@@ -33,11 +33,11 @@ const SearchBar = ({ onSearch }) => {
                 name="searchTerm"
                 placeholder="Search images and photos"
               />
-              <ErrorMessage
+              {/* <ErrorMessage
                 name="searchTerm"
                 component="span"
                 className={errorText}
-              />
+              /> */}
 
               <button type="submit" className={btn}>
                 Search
