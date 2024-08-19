@@ -8,7 +8,7 @@ const INITIAL_VALUES = {
 };
 
 const SearchBar = ({ onSearch }) => {
-  const { form, label, input, btn, errorText } = css;
+  const { form, input, btn, errorText } = css;
 
   const handleSubmit = values => {
     if (values.searchTerm.trim().length === 0) {
@@ -23,8 +23,8 @@ const SearchBar = ({ onSearch }) => {
     <Formik initialValues={INITIAL_VALUES} onSubmit={handleSubmit}>
       {() => {
         return (
-          <Form className={form}>
-            <label className={label}>
+          <header>
+            <Form className={form}>
               <Field
                 className={input}
                 type="text"
@@ -38,12 +38,12 @@ const SearchBar = ({ onSearch }) => {
                 component="span"
                 className={errorText}
               />
-            </label>
 
-            <button type="submit" className={btn}>
-              Search
-            </button>
-          </Form>
+              <button type="submit" className={btn}>
+                Search
+              </button>
+            </Form>
+          </header>
         );
       }}
     </Formik>

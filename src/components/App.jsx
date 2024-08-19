@@ -5,7 +5,7 @@ import requestImages from '../services/api.js';
 import ImageGallery from './ImageGallery/ImageGallery.jsx';
 import Loader from './Loader/Loader.jsx';
 import ErrorMessage from './ErrorMessage/ErrorMessage.jsx';
-// import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn.jsx';
+import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn.jsx';
 // import ImageModal from './ImageModal/ImageModal.jsx';
 import { Toaster } from 'react-hot-toast';
 
@@ -33,7 +33,6 @@ function App() {
   //   fetchImages();
   // }, []);
 
-  // SECOND useffect
   useEffect(() => {
     if (query === null) return;
 
@@ -62,15 +61,18 @@ function App() {
   return (
     <>
       <SearchBar onSearch={onSearch} />
-      {isLoading && <Loader />}
+
       {error !== null && <ErrorMessage errorMsg={error} />}
       {Array.isArray(images) && images.length === 0 ? (
-        <p>No results for your query... Try to change the keyword!</p>
+        <p>No results for your query...</p>
       ) : (
-        <ImageGallery images={images} />
+        <>
+          <ImageGallery images={images} />
+          <LoadMoreBtn />
+        </>
       )}
+      {isLoading && <Loader />}
 
-      {/* <LoadMoreBtn /> */}
       {/* <ImageModal /> */}
       <Toaster position="top-center" reverseOrder={false} />
     </>
