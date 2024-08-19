@@ -11,7 +11,7 @@ const SearchBar = ({ onSearch }) => {
   const { form, label, input, btn, errorText } = css;
 
   const handleSubmit = values => {
-    if (values.searchTerm.length === 0) {
+    if (values.searchTerm.trim().length === 0) {
       toast.error('Please enter a search query');
       return;
     } else {

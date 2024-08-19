@@ -13,12 +13,34 @@ function App() {
   const [images, setImages] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [query, setQuery] = useState(null);
 
+  // useEffect(() => {
+  //   const fetchImages = async () => {
+  //     try {
+  //       setIsLoading(true);
+  //       const data = await requestImages();
+  //       setImages(data.results);
+  //       console.log(data.results);
+  //     } catch (err) {
+  //       setError(err.message);
+  //       console.log(err.message);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchImages();
+  // }, []);
+
+  // SECOND useffect
   useEffect(() => {
+    if (query === null) return;
+
     const fetchImages = async () => {
       try {
         setIsLoading(true);
-        const data = await requestImages();
+        const data = await requestImages(query);
         setImages(data.results);
         console.log(data.results);
       } catch (err) {
@@ -30,9 +52,10 @@ function App() {
     };
 
     fetchImages();
-  }, []);
+  }, [query]);
 
   const onSearch = searchTerm => {
+    setQuery(searchTerm);
     console.log(searchTerm);
   };
 
