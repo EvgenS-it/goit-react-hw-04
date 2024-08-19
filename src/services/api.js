@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const fetchImages = async (query = 'cat', page = 1) => {
-  const response = await axios.get('https://api.unsplash.com/search/photos', {
+const requestImages = async (query = 'cat', page = 1) => {
+  const { data } = await axios.get('https://api.unsplash.com/search/photos', {
     params: {
       query,
       page,
@@ -11,10 +11,10 @@ const fetchImages = async (query = 'cat', page = 1) => {
       Authorization: 'Client-ID dLBR2aie19Pf8Zk_xUX3vQu4vQ20Et0vPLq_v8BBqmM',
     },
   });
-  return response.data;
+  return data;
 };
 
-export default fetchImages;
+export default requestImages;
 
 // export default async function fetchImages(query = 'cat', page = 1){
 //     return await axios.get("https://api.unsplash.com/search/photos", {

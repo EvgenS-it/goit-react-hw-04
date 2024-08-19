@@ -1,13 +1,13 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-// import SearchBar from './SearchBar/SearchBar.jsx';
-// import fetchImages from '../api/api.js';
-import axios from 'axios';
+import SearchBar from './SearchBar/SearchBar.jsx';
+import requestImages from '../services/api.js';
 import ImageGallery from './ImageGallery/ImageGallery.jsx';
 import Loader from './Loader/Loader.jsx';
 import ErrorMessage from './ErrorMessage/ErrorMessage.jsx';
 // import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn.jsx';
 // import ImageModal from './ImageModal/ImageModal.jsx';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [images, setImages] = useState(null);
@@ -15,23 +15,10 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchImages = async (query = 'cat', page = 1) => {
+    const fetchImages = async () => {
       try {
         setIsLoading(true);
-        const { data } = await axios.get(
-          'https://api.unsplash.com/search/photos',
-          {
-            params: {
-              query,
-              page,
-              orientation: 'landscape',
-            },
-            headers: {
-              Authorization:
-                'Client-ID dLBR2aie19Pf8Zk_xUX3vQu4vQ20Et0vPLq_v8BBqmM',
-            },
-          }
-        );
+        const data = await requestImages();
         setImages(data.results);
         console.log(data.results);
       } catch (err) {
@@ -45,9 +32,13 @@ function App() {
     fetchImages();
   }, []);
 
+  const onSearch = searchTerm => {
+    console.log(searchTerm);
+  };
+
   return (
     <>
-      {/* <SearchBar hadleSearch={} /> */}
+      <SearchBar onSearch={onSearch} />
       {isLoading && <Loader />}
       {error !== null && <ErrorMessage errorMsg={error} />}
       {Array.isArray(images) && images.length === 0 ? (
@@ -56,9 +47,9 @@ function App() {
         <ImageGallery images={images} />
       )}
 
-      {/* <ErrorMessage /> */}
       {/* <LoadMoreBtn /> */}
       {/* <ImageModal /> */}
+      <Toaster position="top-center" reverseOrder={false} />
     </>
   );
 }

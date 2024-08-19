@@ -1,28 +1,53 @@
 import css from './SearchBar.module.css';
-import PropTypes from 'prop-types';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import toast from 'react-hot-toast';
 
-const SearchBar = ({ hadleSearch }) => {
-  const { header, form, input, searchBtn } = css;
-  return (
-    <header className={header}>
-      <form className={form}>
-        <input
-          className={input}
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
-        <button type="submit" className={searchBtn} onSubmit={hadleSearch}>
-          Search
-        </button>
-      </form>
-    </header>
-  );
+// for Formik
+const INITIAL_VALUES = {
+  searchTerm: '',
 };
 
-SearchBar.propTypes = {
-  handleSubmit: PropTypes.func,
+const SearchBar = ({ onSearch }) => {
+  const { form, label, input, btn, errorText } = css;
+
+  const handleSubmit = values => {
+    if (values.searchTerm.length === 0) {
+      toast.error('Please enter a search query');
+      return;
+    } else {
+      onSearch(values.searchTerm);
+    }
+  };
+
+  return (
+    <Formik initialValues={INITIAL_VALUES} onSubmit={handleSubmit}>
+      {() => {
+        return (
+          <Form className={form}>
+            <label className={label}>
+              <Field
+                className={input}
+                type="text"
+                autoComplete="off"
+                autoFocus
+                name="searchTerm"
+                placeholder="Search images and photos"
+              />
+              <ErrorMessage
+                name="searchTerm"
+                component="span"
+                className={errorText}
+              />
+            </label>
+
+            <button type="submit" className={btn}>
+              Search
+            </button>
+          </Form>
+        );
+      }}
+    </Formik>
+  );
 };
 
 export default SearchBar;
