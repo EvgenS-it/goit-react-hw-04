@@ -6,7 +6,7 @@ import ImageGallery from './ImageGallery/ImageGallery.jsx';
 import Loader from './Loader/Loader.jsx';
 import ErrorMessage from './ErrorMessage/ErrorMessage.jsx';
 import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn.jsx';
-// import ImageModal from './ImageModal/ImageModal.jsx';
+import ImageModal from './ImageModal/ImageModal.jsx';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -16,6 +16,8 @@ function App() {
   const [query, setQuery] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
+  const [modalImage, setModalImage] = useState({});
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (query === null) return;
@@ -28,9 +30,6 @@ function App() {
         // setImages(data.results);
         setImages(prevImages => [...prevImages, ...data.results]);
         setTotalPages(data.total_pages);
-        console.log(data);
-
-        console.log(data.results);
       } catch (err) {
         setError(err.message);
         console.log(err.message);
@@ -47,10 +46,15 @@ function App() {
     setImages([]);
     setQuery(searchTerm);
     setPage(1);
-    console.log(searchTerm);
   };
 
   const onLoadMore = () => setPage(prevPage => prevPage + 1);
+
+  const handleOpenModal = currentId => {
+    const [currentImg] = images.filter(({ id }) => id === currentId);
+    setModalImage(currentImg);
+    setOpenModal(!openModal);
+  };
 
   return (
     <>
@@ -63,14 +67,14 @@ function App() {
           keyword.
         </p>
       ) : (
-        <ImageGallery images={images} />
+        <ImageGallery images={images} handleOpenModal={handleOpenModal} />
       )}
       {isLoading && <Loader />}
 
       {Array.isArray(images) && images.length !== 0 && page < totalPages && (
         <LoadMoreBtn onLoadMore={onLoadMore} />
       )}
-      {/* <ImageModal /> */}
+      {openModal && <ImageModal handleModal={setOpenModal} img={modalImage} />}
       <Toaster position="top-center" reverseOrder={false} />
     </>
   );
