@@ -28,7 +28,6 @@ function App() {
         setIsLoading(true);
         const data = await requestImages(query, page);
         setImages(prevImages => [...prevImages, ...data.results]);
-        console.log(data);
 
         setTotalPages(data.total_pages);
       } catch (err) {

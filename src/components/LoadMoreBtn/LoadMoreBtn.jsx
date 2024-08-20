@@ -12,7 +12,7 @@ const LoadMoreBtn = ({ onLoadMore }) => {
 };
 
 LoadMoreBtn.propTypes = {
-  handleSubmit: PropTypes.func,
+  onLoadMore: PropTypes.func.isRequired,
 };
 
 export default LoadMoreBtn;
