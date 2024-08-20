@@ -10,12 +10,13 @@ const INITIAL_VALUES = {
 const SearchBar = ({ onSearch }) => {
   const { header, form, input, btn } = css;
 
-  const handleSubmit = values => {
+  const handleSubmit = (values, actions) => {
     if (values.searchTerm.trim().length === 0) {
       toast.error('Please enter a search query');
       return;
     } else {
       onSearch(values.searchTerm);
+      actions.resetForm();
     }
   };
 
