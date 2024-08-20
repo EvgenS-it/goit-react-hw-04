@@ -1,6 +1,5 @@
 import css from './ImageGallery.module.css';
 import ImageCard from '../ImageCard/ImageCard.jsx';
-// import PropTypes from 'prop-types';
 
 const ImageGallery = ({ images, handleOpenModal }) => {
   return (
@@ -24,9 +23,5 @@ const ImageGallery = ({ images, handleOpenModal }) => {
     </ul>
   );
 };
-
-// ImageGallery.propTypes = {
-//   images: PropTypes.array,
-// };
 
 export default ImageGallery;

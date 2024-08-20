@@ -8,7 +8,7 @@ const INITIAL_VALUES = {
 };
 
 const SearchBar = ({ onSearch }) => {
-  const { form, input, btn } = css;
+  const { header, form, input, btn } = css;
 
   const handleSubmit = values => {
     if (values.searchTerm.trim().length === 0) {
@@ -23,7 +23,7 @@ const SearchBar = ({ onSearch }) => {
     <Formik initialValues={INITIAL_VALUES} onSubmit={handleSubmit}>
       {() => {
         return (
-          <header>
+          <header className={header}>
             <Form className={form}>
               <Field
                 className={input}
@@ -33,11 +33,6 @@ const SearchBar = ({ onSearch }) => {
                 name="searchTerm"
                 placeholder="Search images and photos"
               />
-              {/* <ErrorMessage
-                name="searchTerm"
-                component="span"
-                className={errorText}
-              /> */}
 
               <button type="submit" className={btn}>
                 Search

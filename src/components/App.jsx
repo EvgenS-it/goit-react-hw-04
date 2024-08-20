@@ -27,8 +27,9 @@ function App() {
         setError(null);
         setIsLoading(true);
         const data = await requestImages(query, page);
-        // setImages(data.results);
         setImages(prevImages => [...prevImages, ...data.results]);
+        console.log(data);
+
         setTotalPages(data.total_pages);
       } catch (err) {
         setError(err.message);
@@ -59,9 +60,8 @@ function App() {
   return (
     <>
       <SearchBar onSearch={onSearch} />
-
       {error !== null && <ErrorMessage errorMsg={error} />}
-      {Array.isArray(images) && images.length === 0 ? (
+      {!isLoading && Array.isArray(images) && images.length === 0 ? (
         <p>
           No results for your query &quot;{query}&quot;. Please, try another
           keyword.
@@ -75,7 +75,7 @@ function App() {
         <LoadMoreBtn onLoadMore={onLoadMore} />
       )}
       {openModal && <ImageModal handleModal={setOpenModal} img={modalImage} />}
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 }
